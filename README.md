@@ -3,7 +3,7 @@
 
 ## About This Project
 
-This is a mini project from a course of larave with teacher Italo Morales.
+This is a mini project from a course of Laravel with teacher Italo Morales.
 
 To run this project:
 
