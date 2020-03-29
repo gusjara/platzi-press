@@ -6,6 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostsRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -41,7 +42,7 @@ class PostsController extends Controller
      */
     public function store(PostsRequest $request)
     {
-        dd($request->all());
+        // dd($request->all());
         // save
         $post = Post::create([
             'user_id' => auth()->user()->id,
@@ -52,7 +53,8 @@ class PostsController extends Controller
             $post->save();
         }
         // return
-        return back()->with('status', 'Post was successfully created');
+        // return back()->with('status', 'Post was successfully created');
+        return redirect('/posts')->with('status', 'Post was successfully created');
     }
 
     /**
@@ -75,6 +77,7 @@ class PostsController extends Controller
     public function edit(Post $post)
     {
         //
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -84,9 +87,24 @@ class PostsController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostsRequest $request, Post $post)
     {
-        //
+        // $post->update($request->all());
+        $post->update([
+            'title' => $request->title,
+            'body' => $request->body,
+            'iframe' => $request->iframe
+        ]);
+
+        // image
+        if ($request->file('image')) {
+            Storage::disk('public')->delete($post->image);
+            $post->image = $request->file('image')->store('posts', 'public');
+            $post->save();
+        }
+
+        // return back()->with('status', 'Post was successfully edited.');
+        return redirect('/posts')->with('status', 'Post was successfully edited.');
     }
 
     /**
@@ -97,6 +115,9 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        // delete image
+        Storage::disk('public')->delete($post->image);
+        $post->delete();
+        return back()->with('status', 'Post was successfully deleted.');
     }
 }

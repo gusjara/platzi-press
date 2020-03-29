@@ -21,12 +21,34 @@ class PostsRequest extends FormRequest
      *
      * @return array
      */
+
+    //rules
     public function rules()
     {
+        
         return [
             //
-            'title' => 'required',
-            'body' => 'required'
+            'title' => 'required|min:3|unique:posts,title,'.$this->post->id,
+            'body' => 'required|min:10'
+        ];
+    }
+
+    // messages
+    public function messages(){
+        return [
+            'title.required'    =>  'The :attribute is required',
+            'title.unique'    =>  'The :attribute is already in use',
+            'title.min'    =>  'The :attribute must have at least 3 characters',
+            'body.required'      =>  'The :attribute required',
+            'body.min'      =>  'The :attribute must have more than 10 characters',
+        ];
+    }
+
+    // rename attributes
+    public function attributes(){
+        return [
+            'title'      => 'TITLE',
+            'body'   => 'BODY',
         ];
     }
 }

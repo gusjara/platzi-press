@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Create a New Article
+                    Edit Article
                     <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary float-right">Back</a>
                 </div>
 
@@ -16,25 +16,15 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    @if ($errors->any())
-                        <div class="alert alert-danger" role="alert">
-                            <h4>Notification! Some fields have errors...</h4>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
 
                     <form
-                        action="{{ route('posts.store') }}"
+                        action="{{ route('posts.update', $post) }}"
                         method="POST"
                         enctype="multipart/form-data"
                     >
                         <div class="form-group">
                             <label for="">Title *</label>
-                            <input type="text" name="title" class="form-control" required value="{{old('title')}}">
+                            <input type="text" name="title" class="form-control" required value="{{ old('title', $post->title) }}">
                         </div>
                         <div class="form-group">
                             <label for="">Image</label>
@@ -42,15 +32,16 @@
                         </div>
                         <div class="form-group">
                             <label for="">Content *</label>
-                            <textarea name="body" id="body" class="form-control" required value="{{old('body')}}"></textarea>
+                            <textarea name="body" id="body" class="form-control" required value="">{{ old('body', $post->body) }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="">Embebed Content</label>
-                            <textarea name="iframe" id="iframe" class="form-control" value="{{old('iframe')}}"></textarea>
+                            <textarea name="iframe" id="iframe" class="form-control" value="">{{ old('iframe', $post->iframe) }}</textarea>
                         </div>
                         <div class="form-group">
                             @csrf
-                            <input type="submit" value="Save" class="btn btn-sm btn-primary">
+                            @method('PATCH')
+                            <input type="submit" value="Edit" class="btn btn-sm btn-primary">
                         </div>
                     </form>
                 </div>
