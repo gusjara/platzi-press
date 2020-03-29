@@ -17,7 +17,7 @@
                     <form
                         action="{{ route('posts.store') }}"
                         method="POST"
-                        enctype="multipat/form-data"
+                        enctype="multipart/form-data"
                     >
                         <div class="form-group">
                             <label for="">Title *</label>
@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Image</label>
-                            <input type="file" name="file">
+                            <input type="file" name="image">
                         </div>
                         <div class="form-group">
                             <label for="">Content *</label>
