@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Articles <a class="btn btn-sm btn-primary float-right" href="{{ route('posts.create') }}">Create</a>
+                    Routines <a class="btn btn-sm btn-primary float-right" href="{{ route('posts.create') }}">Create</a>
                 </div>
 
                 <div class="card-body">

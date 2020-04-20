@@ -20,7 +20,10 @@
                     <p class="card-text">
                         {{ $post->get_excerpt }} ...
                     </p>
-                    <a href="{{ route('pages.post', $post) }}">Read more</a>
+                    @auth
+                        <a href="{{ route('pages.post', $post) }}">Read more</a>
+                    @else
+                    @endauth    
                     <p class="text-muted mb-0">
                         <em>
                             &ndash; {{ $post->user->name }}

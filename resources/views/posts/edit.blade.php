@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Edit Article
+                    Edit Routine
                     <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary float-right">Back</a>
                 </div>
 
@@ -27,8 +27,12 @@
                             <input type="text" name="title" class="form-control" required value="{{ old('title', $post->title) }}">
                         </div>
                         <div class="form-group">
+                            @if($post->image)
+                                <img src="{{ $post->get_image }}" class="img-thumbnail">
+                            @else
                             <label for="">Image</label>
                             <input type="file" name="image">
+                            @endif
                         </div>
                         <div class="form-group">
                             <label for="">Content *</label>

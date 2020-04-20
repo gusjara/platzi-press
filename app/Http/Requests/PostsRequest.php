@@ -25,10 +25,17 @@ class PostsRequest extends FormRequest
     //rules
     public function rules()
     {
-        
+        // dd($this->method());
+        if ($this->method() == 'PATCH'){
+            return [
+                ////'titulo' => 'required|min:3|unique:noticias,titulo,'.$id.',id',
+                'title' => 'required|min:3|unique:posts,title,'.$this->post->id,
+                'body' => 'required|min:10'
+            ];
+        }
         return [
-            //
-            'title' => 'required|min:3|unique:posts,title,'.$this->post->id,
+            ////'titulo' => 'required|min:3|unique:noticias,titulo,'.$id.',id',
+            'title' => 'required|min:3|unique:posts,title',
             'body' => 'required|min:10'
         ];
     }
